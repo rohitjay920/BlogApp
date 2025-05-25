@@ -13,42 +13,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blog.dto.CategoryDto;
 import com.blog.dto.ResponseStructure;
-import com.blog.dto.UserDto;
-import com.blog.service.UserService;
+import com.blog.service.CategoryService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/category")
+public class CategoryController {
 	
 	@Autowired
-	private UserService userService;
+	private CategoryService categoryService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<ResponseStructure<UserDto>> createUser(@Valid @RequestBody UserDto userDto){
-		return userService.createUser(userDto);
+	public ResponseEntity<ResponseStructure<CategoryDto>> createCategory(@Valid @RequestBody CategoryDto category){
+		return categoryService.createCategory(category);
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<ResponseStructure<UserDto>> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable(name="id") int userId){
-		return userService.updateUser(userDto, userId);
+	public ResponseEntity<ResponseStructure<CategoryDto>> updateCategory(@Valid @RequestBody CategoryDto category, @PathVariable int id){
+		return categoryService.updateCategory(category, id);
 	}
 	
 	@GetMapping("/get/{id}")
-	public ResponseEntity<ResponseStructure<UserDto>> getUserById(@PathVariable(name="id") int userId){
-		return userService.getUserById(userId);
+	public ResponseEntity<ResponseStructure<CategoryDto>> getCategory(@PathVariable int id){
+		return categoryService.getCategory(id);
 	}
 	
 	@GetMapping("/getAll")
-	public ResponseEntity<ResponseStructure<List<UserDto>>> getAllUsers(){
-		return userService.getAllUsers();
+	public ResponseEntity<ResponseStructure<List<CategoryDto>>> getAllCategory(){
+		return categoryService.getAllCategory();
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable(name="id") int userId){
-		return userService.delete(userId);
+	public ResponseEntity<String> deleteCategory(@PathVariable int id){
+		return categoryService.deleteCategory(id);
 	}
-	
 }
